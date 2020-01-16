@@ -17,6 +17,7 @@ const MessageItem = ({
 const Wrap = styled.li`
     display: flex;
     align-items: center;
+    padding: 1em;
 `
 
 const UserIcon = styled.div`

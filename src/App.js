@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
+import GlobalStyle from './GlobalStyle'
 
 import RoomList from './RoomList'
 import ChatView from './ChatView'
@@ -19,60 +20,42 @@ const App = () => {
     ])
     const [activeRoomId, setActiveRoomId] = useState(0)
     const [activeUser, setActiveUser] = useState('Takemitsu')
-    const [chatHistories, setChatHistories] = useState([
+    const [messages, setMessages] = useState([
         {
             roomId: 0,
-            messages: [
-                {
-                    user: 'Takemitsu',
-                    content: 'oooooooooooo'
-                },
-                {
-                    user: 'Nagoya',
-                    content: 'lllllllllllllll'
-                }
-            ]
+            user: 'Takemitsu',
+            content: 'oooooooooooo'
         },
         {
             roomId: 1,
-            messages: [
-                {
-                    user: 'fdafsfd',
-                    content: 'gadgdag'
-                },
-                {
-                    user: 'fbbdfb',
-                    content: 'vsdvdsvsd'
-                }
-            ]
+            user: 'Nagoya',
+            content: 'lllllllllllllll'
         }
     ]);
 
-    const chatHistory = chatHistories[activeRoomId]
     const activeRoom = rooms[activeRoomId].name
+    const activeMessages = messages.filter(message => message.roomId === activeRoomId )
 
     const changeRoom = (id) => {
         setActiveRoomId(id)
     }
 
     const speak = (value) => {
-        const chatHisto
-        const newMessages = chatHistory.messages.concat(
-            {
-                user: activeUser,
-                content: value
-            }
-        )
-
+        setMessages(messages.concat({
+            roomId: activeRoomId,
+            user: activeUser,
+            content: value
+        }))
     }
 
 
     return (
         <>
+            <GlobalStyle />
             <MainWrap>
                 <RoomList rooms={rooms} changeRoom={changeRoom} />
                 <ChatView 
-                    chatHistory={chatHistory} 
+                    messages={activeMessages} 
                     activeRoom={activeRoom}
                     activeUser={activeUser} 
                 />
@@ -89,7 +72,9 @@ const App = () => {
 
 const MainWrap = styled.div`
     display: flex;
+    box-sizing: border-box;
     height: 90vh;
+    padding: 2em;
 `
 
 export default App

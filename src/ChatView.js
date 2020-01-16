@@ -4,7 +4,7 @@ import styled from "styled-components"
 import MessageItem from './MessageItem'
 
 const ChatView = ({
-    chatHistory,
+    messages,
     activeRoom,
     activeUser
 }) => {
@@ -12,7 +12,8 @@ const ChatView = ({
         <Container>
             <h2>{activeRoom}</h2>
             {
-                chatHistory.messages.map(message => (
+                messages
+                    .map(message => (
                     <MessageItem
                         user={message.user}
                         message={message.content}
@@ -26,6 +27,8 @@ const ChatView = ({
 const Container = styled.ul`
     width: 100%;
     list-style: none;
+    padding: 0 50px;
+    box-sizing: border-box;
 `
 
 export default ChatView
